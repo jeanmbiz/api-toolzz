@@ -8,6 +8,7 @@ const createUserService = async (
   userData: IUserRequest
 ): Promise<IUserResponse> => {
 
+
   try {
     await createUserSchema.validate(userData, { abortEarly: false });
   } catch (validationError) {
@@ -26,6 +27,8 @@ const createUserService = async (
   }
 
   const createdUser = userRepository.create(userData);
+
+  console.log('USUARIO CRIADO ===>',createdUser)
 
   await userRepository.save(createdUser);
 

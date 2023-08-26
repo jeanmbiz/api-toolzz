@@ -34,8 +34,8 @@ class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Films, (Film) => Film.user)
-  Film: Films[];
+  @OneToMany(() => Films, (film) => film.user)
+  films: Films[];
 
   @BeforeUpdate()
   @BeforeInsert()

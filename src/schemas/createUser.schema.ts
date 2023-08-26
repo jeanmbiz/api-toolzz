@@ -15,6 +15,7 @@ const createUserSchema: SchemaOf<IUserRequest> = yup.object().shape({
       .required("Password is required"),
 });
 
+
 const userResponseSchema: SchemaOf<IUserResponse> = yup.object().shape({
   id: yup.string().notRequired(),
   name: yup.string().notRequired(),

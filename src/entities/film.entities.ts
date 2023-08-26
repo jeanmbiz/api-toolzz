@@ -12,14 +12,17 @@ class Films {
   @Column({ length: 50 })
   gender: string;
 
-  @Column({ type: "interval" })
-  duration: number;
+  @Column({ type: "integer" })
+  durationInMinutes: number;
 
   @Column({ type: "integer" })
-  launch_year: number;
+  launchYear: number;
 
   @Column({ length: 500 })
   synopsis: string;
+
+  @Column({ default: true })
+  isActive: boolean;
 
   @ManyToOne(() => User, { eager: true })
   user: User;
