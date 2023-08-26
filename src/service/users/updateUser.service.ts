@@ -2,9 +2,15 @@ import { IUserResponse, IUserUpdateRequest } from '../../interfaces/user.interfa
 import AppDataSource from '../../data-source'
 import { AppError } from '../../errors/AppError'
 import { User } from '../../entities/user.entities';
-import { userResponseSchema } from '../../schemas/createUser.schema';
+import { userResponseSchema, userUpdateSchema } from '../../schemas/createUser.schema';
 
 const updateUserService = async (userData: IUserUpdateRequest, userId: string): Promise<IUserResponse> => {
+
+    try {
+        await userUpdateSchema.validate(userData, { abortEarly: false });
+      } catch (validationError) {
+        throw new AppError(validationError.errors.join(', '), 400);
+      }
 
     const userRepository = AppDataSource.getRepository(User);
     
