@@ -1,10 +1,9 @@
 import "reflect-metadata";
 import "dotenv/config";
-import path from "path";
 import { DataSource } from "typeorm";
-import { User } from "../entities/user.entities";
-import { Films } from "../entities/film.entities";
-import { CreateTables1693006420064 } from "./migrations/1693006420064-createTables";
+import { User } from "./entities/user.entities";
+import { Films } from "./entities/film.entities";
+import { CreateTables1693055076420 } from "./migrations/1693055076420-createTables";
 
 const AppDataSource = new DataSource({
   type: "postgres",
@@ -16,7 +15,7 @@ const AppDataSource = new DataSource({
   synchronize: false,
   logging: true,
   entities: [User, Films],
-  migrations: [CreateTables1693006420064],
+  migrations: [CreateTables1693055076420],
 });
 
 export default AppDataSource;

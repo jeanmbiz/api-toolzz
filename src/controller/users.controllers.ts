@@ -34,9 +34,8 @@ const updateUserController = async (req: Request, res: Response) => {
 
 const deleteUserController = async (req: Request, res: Response) => {
   const userId: string = req.params.id;
-  const userAuth: string = req.user.id;
 
-  await deleteUserService(userId, userAuth);
+  await deleteUserService(userId);
 
   return res.status(204).send();
 };

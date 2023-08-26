@@ -1,25 +1,22 @@
-import { User } from "../../../entities/user.entities";
 import AppDataSource from "../../data-source";
+import { User } from "../../entities/user.entities";
 import { AppError } from "../../errors/AppError";
 
-const deleteUserService = async (userId: string, userAuth: string) => {
+const deleteUserService = async (userId: string): Promise<Object> => {
   const userRepository = AppDataSource.getRepository(User);
+  const findUser = await userRepository.findOneBy({ id: userId });
 
-  const foundUserByParam = await userRepository.findOneBy({ id: userId });
-  const foundUserByAuth = await userRepository.findOneBy({ id: userAuth });
+  if (!findUser) {
+    throw new AppError("User doest not exist", 404);
+  }
 
-  if (!foundUserByParam) {
-    throw new AppError("User not found. Informed id is incorrect.", 404);
-  };
+  if (findUser.isActive == false) {
+    throw new AppError("User is already inative", 400);
+  }
 
-  if (foundUserByParam.isActive === false) {
-    throw new AppError("User already deleted.", 400);
-  };
-
-  foundUserByParam.isActive = false;
-  await userRepository.save(foundUserByParam);
-
-  return { foundUserByParam };
+  findUser.isActive = false;
+  await userRepository.save(findUser);
+  return {};
 };
 
 export default deleteUserService;

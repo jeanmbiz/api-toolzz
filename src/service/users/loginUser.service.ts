@@ -1,41 +1,45 @@
-
-import AppDataSource from "../../data-source";
 import { compare } from "bcryptjs";
-import "dotenv/config";
-import Jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import AppDataSource from "../../data-source";
 import { AppError } from "../../errors/AppError";
-import { User } from "../../../entities/user.entities";
+import "dotenv/config";
+import { User } from "../../entities/user.entities";
 import { IUserLogin } from "../../interfaces/user.interfaces";
 
-const loginUserService = async ({
+const createSessionService = async ({
   email,
   password,
 }: IUserLogin): Promise<string> => {
-  const userRepository = AppDataSource.getTreeRepository(User);
+  const userRepository = AppDataSource.getRepository(User);
 
-  const foundUser = await userRepository.findOneBy({
-    email: email,
-  });
+  const user = await userRepository.findOneBy({ email: email });
 
-  if (!foundUser) {
-    throw new AppError("Wrong email or password.", 403);
+  if (!user.isActive) {
+    throw new AppError("User is not active", 400);
   }
 
-  if (!foundUser.isActive) {
-    throw new AppError("User is not active on database.");
+  if (!user) {
+    throw new AppError("User or password invalid", 403);
   }
 
-  const passwordMatch = await compare(password, foundUser.password);
+  const passwordMatch = await compare(password, user.password);
 
   if (!passwordMatch) {
-    throw new AppError("Wrong email or password.", 403);
+    throw new AppError("User or password invalid", 403);
   }
 
-  const token = Jwt.sign({ user: foundUser.id }, process.env.SECRET_KEY, {
-    expiresIn: "24h",
-    subject: String(foundUser.id),
-  });
+  const token = jwt.sign(
+    {
+      id: user.id,
+    },
+    process.env.SECRET_KEY,
+    {
+      subject: String(user.id),
+      expiresIn: "24h",
+    }
+  );
+
   return token;
 };
 
-export default loginUserService;
+export default createSessionService;

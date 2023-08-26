@@ -1,7 +1,7 @@
 import { IUserResponse, IUserUpdateRequest } from '../../interfaces/user.interfaces'
 import AppDataSource from '../../data-source'
 import { AppError } from '../../errors/AppError'
-import { User } from '../../../entities/user.entities';
+import { User } from '../../entities/user.entities';
 import { userResponseSchema } from '../../schemas/createUser.schema';
 
 const updateUserService = async (userData: IUserUpdateRequest, userId: string): Promise<IUserResponse> => {
