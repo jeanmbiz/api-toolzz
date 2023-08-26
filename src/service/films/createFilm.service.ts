@@ -32,16 +32,22 @@ const createFilmService = async (
 
   const userAlreadyExists = await userRepository.findOneBy({ id: userId });
 
-  
   if (!userAlreadyExists) {
     throw new AppError("User does not exist", 404);
   }
 
+  if (userAlreadyExists.isActive !== true) {
+    throw new AppError("User is not active", 400);
+  }
+
   await userRepository.save(userAlreadyExists);
 
-  const userWithoutPassword = await userResponseSchema.validate(userAlreadyExists, {
-    stripUnknown: true,
-  });
+  const userWithoutPassword = await userResponseSchema.validate(
+    userAlreadyExists,
+    {
+      stripUnknown: true,
+    }
+  );
 
   const newFilm = filmRepository.create({
     name,
@@ -52,9 +58,7 @@ const createFilmService = async (
     user: userWithoutPassword,
   });
 
-  
   await filmRepository.save(newFilm);
-
 
   return newFilm;
 };
