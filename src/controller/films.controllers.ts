@@ -12,7 +12,9 @@ const createFilmController = async (req: Request, res: Response) => {
 };
 
 const listFilmsController = async (req: Request, res: Response) => {
+  console.time()
   const films = await listFilmsService();
+  console.timeEnd()
   return res.json(films);
 };
 
