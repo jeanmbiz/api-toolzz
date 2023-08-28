@@ -1,9 +1,9 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { iFilmRequest, iFilmResponse } from "../interfaces/film.interfaces";
+import { IFilmRequest, IFilmResponse } from "../interfaces/film.interfaces";
 import { userResponseSchema } from "./createUser.schema";
 
-const createFilmSchema: SchemaOf<iFilmRequest> = yup.object().shape({
+const createFilmSchema: SchemaOf<IFilmRequest> = yup.object().shape({
   name: yup
     .string()
     .max(50, "Name cannot be longer than 50 characters")

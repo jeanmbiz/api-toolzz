@@ -2,14 +2,14 @@ import AppDataSource from "../../data-source";
 import { Films } from "../../entities/film.entities";
 import { User } from "../../entities/user.entities";
 import { AppError } from "../../errors/AppError";
-import { iFilmRequest, iFilmResponse } from "../../interfaces/film.interfaces";
+import { IFilmRequest, IFilmResponse } from "../../interfaces/film.interfaces";
 import { createFilmSchema } from "../../schemas/createFilm.schema";
 import { userResponseSchema } from "../../schemas/createUser.schema";
 
 const createFilmService = async (
-  filmData: iFilmRequest,
+  filmData: IFilmRequest,
   userId: string
-): Promise<iFilmResponse> => {
+): Promise<IFilmResponse> => {
   try {
     await createFilmSchema.validate(filmData, { abortEarly: false });
   } catch (validationError) {

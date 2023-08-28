@@ -1,6 +1,6 @@
 import { User } from "../entities/user.entities";
 
-export interface iFilmRequest {
+export interface IFilmRequest {
   name: string;
   gender: string;
   durationInMinutes: number;
@@ -8,7 +8,7 @@ export interface iFilmRequest {
   synopsis: string;
 }
 
-export interface iFilmResponse {
+export interface IFilmResponse {
   id: string;
   name: string;
   gender: string;

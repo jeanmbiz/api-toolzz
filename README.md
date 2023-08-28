@@ -33,7 +33,7 @@
 
 #### Rotas Protegidas:
 
-- Update de usuário: somente o próprio usuário ativo e logado pode editar suas informações;
+- Update de usuário: somente o próprio usuário ativo e logado pode editar suas informações, e ao atualizar email valida se email já existe no banco de dados;
 - Deletar usuário: somente o próprio usuário ativo e logado pode inativar seu cadastro da plataforma, é utilizado o soft delete, não excluindo os dados no banco de dados, apenas marcando ativo como false.
 - Criar filme: usuário deve estar ativo e logado para adicionar filme na plataforma. As informações passam por uma validação antes de serem adicionadas, não sendo possível criar filme com o mesmo nome e sinopse;
 - Deletar filme: o usuário ativo e logado pode deletar apenas o próprio filme que adicionou na plataforma, não sendo possível deletar filmes de outros usuários, é utilizado o soft delete, não excluindo os dados no banco de dados, apenas marcando ativo como false.

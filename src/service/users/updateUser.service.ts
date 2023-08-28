@@ -20,15 +20,20 @@ const updateUserService = async (
     throw new AppError(validationError.errors.join(", "), 400);
   }
 
+  const { name, email, password } = userData;
+
   const userRepository = AppDataSource.getRepository(User);
 
   const foundUserByParam = await userRepository.findOneBy({ id: userId });
+  const foundUserByEmail = await userRepository.findOneBy({ email: email });
 
   if (!foundUserByParam) {
     throw new AppError("User not found.", 404);
   }
 
-  const { name, email, password } = userData;
+  if (foundUserByEmail) {
+    throw new AppError("Email already exists", 409);
+  }
 
   if (!name && !email && !password) {
     throw new AppError(
