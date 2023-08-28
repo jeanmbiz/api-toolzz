@@ -14,7 +14,18 @@ const userRoutes = Router();
 
 userRoutes.post("/login", loginUserController);
 userRoutes.post("", createUserController);
-userRoutes.patch("/:id", ensureAuthMiddleware, ensureOwnUserMiddleware, ensureDataIsValidMiddleware(userUpdateSchema), updateUserController);
-userRoutes.delete("/:id",ensureAuthMiddleware, ensureOwnUserMiddleware, deleteUserController);
+userRoutes.patch(
+  "/:id",
+  ensureAuthMiddleware,
+  ensureOwnUserMiddleware,
+  ensureDataIsValidMiddleware(userUpdateSchema),
+  updateUserController
+);
+userRoutes.delete(
+  "/:id",
+  ensureAuthMiddleware,
+  ensureOwnUserMiddleware,
+  deleteUserController
+);
 
 export default userRoutes;

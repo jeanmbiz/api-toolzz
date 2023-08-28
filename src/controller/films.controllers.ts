@@ -6,15 +6,15 @@ import deleteFilmService from "../service/films/deleteFilm.service";
 
 const createFilmController = async (req: Request, res: Response) => {
   const filmData: iFilmRequest = req.body;
-  const userId: string = req.user.id
+  const userId: string = req.user.id;
   const newFilm = await createFilmService(filmData, userId);
   return res.status(201).json(newFilm);
 };
 
 const listFilmsController = async (req: Request, res: Response) => {
-  console.time()
+  console.time();
   const films = await listFilmsService();
-  console.timeEnd()
+  console.timeEnd();
   return res.json(films);
 };
 

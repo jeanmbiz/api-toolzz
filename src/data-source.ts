@@ -5,9 +5,6 @@ import { User } from "./entities/user.entities";
 import { Films } from "./entities/film.entities";
 import { CreateTables1693080323993 } from "./migrations/1693080323993-createTables";
 
-
-
-
 const AppDataSource = new DataSource({
   type: "postgres",
   host: process.env.PGHOST,

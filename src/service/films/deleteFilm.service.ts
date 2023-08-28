@@ -3,7 +3,6 @@ import { Films } from "../../entities/film.entities";
 import { AppError } from "../../errors/AppError";
 
 const deleteFilmService = async (filmId: string): Promise<Object> => {
-
   const filmRepository = AppDataSource.getRepository(Films);
   const findFilm = await filmRepository.findOneBy({ id: filmId });
 

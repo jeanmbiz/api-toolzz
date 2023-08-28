@@ -8,10 +8,9 @@ const ensureOwnUserMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
+  const userRepository = AppDataSource.getRepository(User);
 
-  const userRepository = AppDataSource.getRepository(User)
-
-  const findUserLogued = await userRepository.findOneBy({id: req.user.id })
+  const findUserLogued = await userRepository.findOneBy({ id: req.user.id });
 
   if (req.user.id !== req.params.id || findUserLogued.isActive !== true) {
     throw new AppError("You don't have permission", 403);
